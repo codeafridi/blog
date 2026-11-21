@@ -29,12 +29,12 @@ export const SITE = {
 }
 
 const nav = [
-  ['writing', '/'],
-  ['about', '/about.html'],
-  ['rss', '/feed.xml'],
+  ['writing', 'index.html'],
+  ['about', 'about.html'],
+  ['rss', 'feed.xml'],
 ]
 
-function layout({ title, description, body, path, current = '/' }) {
+function layout({ title, description, body, path, current = 'index.html' }) {
   const pageTitle = title === SITE.title ? title : `${title} — ${SITE.title}`
   return `<!doctype html>
 <html lang="en">
@@ -44,14 +44,14 @@ function layout({ title, description, body, path, current = '/' }) {
 <meta name="color-scheme" content="light">
 <title>${escapeXML(pageTitle)}</title>
 <meta name="description" content="${escapeXML(description)}">
-<link rel="stylesheet" href="/theme.css">
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="alternate" type="application/rss+xml" title="${escapeXML(SITE.title)}" href="/feed.xml">
-${path ? `<link rel="canonical" href="${SITE.url}${path}">` : ''}
+<link rel="stylesheet" href="theme.css">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="alternate" type="application/rss+xml" title="${escapeXML(SITE.title)}" href="feed.xml">
+${path ? `<link rel="canonical" href="${SITE.url}${path === 'index.html' ? '/' : '/' + path}">` : ''}
 </head>
 <body>
 <header class="masthead">
-  <a class="wordmark" href="/">${escapeXML(SITE.title)}</a>
+  <a class="wordmark" href="index.html">${escapeXML(SITE.title)}</a>
   <nav>${nav
     .map(([label, href]) =>
       `<a href="${href}"${href === current ? ' aria-current="page"' : ''}>${label}</a>`,
@@ -63,7 +63,7 @@ ${body}
 </main>
 <footer class="colophon">
   <span>© ${new Date().getUTCFullYear()} ${escapeXML(SITE.author)}</span>
-  <span>Set in Newsreader &amp; IBM Plex Mono · <a href="/feed.xml">RSS</a></span>
+  <span>Set in Newsreader &amp; IBM Plex Mono · <a href="feed.xml">RSS</a></span>
 </footer>
 </body>
 </html>
@@ -79,7 +79,7 @@ function indexPage(posts) {
       (p, i) => `  <article class="entry">
     <div class="entry-no">${String(i + 1).padStart(2, '0')}<span>${marginDate(p.date)}</span></div>
     <div>
-      <h2><a href="/${p.slug}.html">${escapeXML(p.title)}</a></h2>
+      <h2><a href="${p.slug}.html">${escapeXML(p.title)}</a></h2>
       <p class="summary">${escapeXML(p.summary)}</p>
       <div class="entry-meta">
         <span>${p.minutes} min read</span>
@@ -93,7 +93,7 @@ function indexPage(posts) {
   return layout({
     title: SITE.title,
     description: SITE.description,
-    path: '/',
+    path: 'index.html',
     body: `<section class="intro">
   <h1>Writing</h1>
   <p class="lede">${escapeXML(SITE.description)}</p>
@@ -111,13 +111,13 @@ function postPage(post, prev, next, number) {
 
   const step = (p, label) =>
     p
-      ? `<a class="step" href="/${p.slug}.html"><span class="label">${label}</span><span>${escapeXML(p.title)}</span></a>`
+      ? `<a class="step" href="${p.slug}.html"><span class="label">${label}</span><span>${escapeXML(p.title)}</span></a>`
       : '<span></span>'
 
   return layout({
     title: post.title,
     description: post.summary,
-    path: `/${post.slug}.html`,
+    path: `${post.slug}.html`,
     body: `<article class="post">
   <header>
     <div class="entry-meta"><span>Entry ${number}</span><time datetime="${isoDate(post.date)}">${humanDate(post.date)}</time><span>${post.minutes} min read</span></div>
@@ -140,8 +140,8 @@ function aboutPage(markdown) {
   return layout({
     title: 'About',
     description: `About ${SITE.author}`,
-    path: '/about.html',
-    current: '/about.html',
+    path: 'about.html',
+    current: 'about.html',
     body: `<article class="post">
   <header><h1>About</h1></header>
   <div class="prose">
@@ -157,7 +157,7 @@ function notFoundPage() {
     description: 'Nothing here.',
     body: `<section class="intro">
   <h1>Nothing here</h1>
-  <p class="lede">That page does not exist. <a href="/">Start from the writing.</a></p>
+  <p class="lede">That page does not exist. <a href="index.html">Start from the writing.</a></p>
 </section>`,
   })
 }

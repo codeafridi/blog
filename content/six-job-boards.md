@@ -5,7 +5,7 @@ summary: What building a small job digest taught me about filters — and why th
 tags: go, cli, tools
 ---
 
-Every remote job board solves the same problem badly: it shows you everything, in the order an advertiser paid for. Reading four of them every morning is a part-time job with no salary. So I wrote a small tool that fetches six, ranks the postings against a profile, and prints the ones that are actually worth opening.
+Every remote job board solves the same problem badly: it shows you everything, in the order an advertiser paid for. Reading four of them every morning is a part-time job with no salary. So I wrote [a small tool](https://github.com/codeafridi/jobwatch) that fetches six, ranks the postings against a profile, and prints the ones that are actually worth opening.
 
 The interesting part was not the fetching. It was watching what a naive filter does.
 

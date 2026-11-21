@@ -5,7 +5,7 @@ summary: A decision record that only exists inside a web app is a note, not a re
 tags: prudence, design, web
 ---
 
-Prudence is a small tool for writing down decisions: the question, the options, what you picked, why, and what would make you flip. It runs in the browser and stores everything locally. That is the right default for something you might not want on a server.
+[Prudence](https://codeafridi.github.io/Prudence/) is a small tool for writing down decisions: the question, the options, what you picked, why, and what would make you flip. It runs in the browser and stores everything locally. That is the right default for something you might not want on a server.
 
 But a decision record has a second life. It gets sent to a colleague, attached to a postmortem, printed for a review, filed next to a contract. A page that needs an app to open is not a record yet. It is a note that happens to have structure.
 

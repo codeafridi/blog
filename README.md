@@ -6,7 +6,7 @@ dependencies beyond Node itself.
 ```sh
 node build.mjs           # build into dist/
 node build.mjs --serve   # build and serve on http://localhost:4321
-node --test              # 18 tests: markdown, front matter, feed
+node --test              # 19 tests: markdown, front matter, feed, build
 ```
 
 ## Writing a post
